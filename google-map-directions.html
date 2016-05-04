@@ -194,8 +194,10 @@ Fired whenever the directions service returns a result.
       };
       this.directionsService.route(request, function(response, status) {
         if (status == google.maps.DirectionsStatus.OK) {
-          this.response = response;
-          this.fire('google-map-response', {response: response});
+          if (response.request.origin === this.startAddress && response.request.destination === this.endAddress) {
+            this.response = response;
+            this.fire('google-map-response', {response: response});
+          }
         }
       }.bind(this));
     }
