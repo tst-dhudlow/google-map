@@ -382,7 +382,7 @@ child of `google-map`.
         }
         this.info.setContent(content);
       } else {
-        if (this.info) {
+        if (this.info && !this.open) {
           // Destroy the existing infowindow.  It doesn't make sense to have an empty one.
           google.maps.event.removeListener(this.openInfoHandler_);
           google.maps.event.removeListener(this.closeInfoHandler_);
@@ -397,6 +397,7 @@ child of `google-map`.
           this.info.open(this.map, this.marker);
           this.fire('google-map-marker-open');
         } else {
+          this.content = this.info.getContent();
           this.info.close();
           this.fire('google-map-marker-close');
         }
